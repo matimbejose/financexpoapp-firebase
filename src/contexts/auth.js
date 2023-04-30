@@ -72,7 +72,7 @@ export default function AuthProvider({ children }) {
     }
 
 
-    //gravar dados do user na memoria local
+    //save data in AsyncStorage
     async function storegeUser(data) {
         await AsyncStorage.setItem('Auth_user', JSON.stringify(data))
     }
@@ -90,7 +90,6 @@ export default function AuthProvider({ children }) {
 
     return(
 
-        // convertar o user para  boleano
         <AuthContext.Provider value={{ signed: !!user, user, signUp, signIn, loading, signOut }}>
             { children }
         </AuthContext.Provider>     
