@@ -14,6 +14,8 @@ export default function Home() {
     { key: '2', tipo: 'despesa',  valor: 200},
     { key: '3', tipo: 'receita',  valor: 40},
     { key: '4', tipo: 'receita',  valor: 60.78},
+    { key: '5', tipo: 'despesa',  valor: 70.78},
+    { key: '6', tipo: 'receita',  valor: 70.78},
 
   ])
 
@@ -25,7 +27,7 @@ export default function Home() {
         <Header />
 
         <Container>
-          <Nome>Matimbe jose</Nome>
+          <Nome>{  user && user.nome }</Nome>
           <Saldo>1500 MT</Saldo>
         </Container>
 
@@ -33,10 +35,10 @@ export default function Home() {
         <Title>Ultimas movimentacoes</Title>
 
         <List
-        showVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         data={ historico }
         keyExtractor={ item => item.key }
-        renderItem={ ( { item  }) => ( <HistoricoList /> ) }
+        renderItem={ ( { item  }) => ( <HistoricoList data={ item } /> ) }
         />
 
       </Background>

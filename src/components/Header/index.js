@@ -7,8 +7,6 @@ import { useNavigation  } from '@react-navigation/native';
 export default function Header() {
     const navigation = useNavigation()
 
-
-
  return (
     <Container>
         <ButtonMenu  onPress={() => navigation.toggleDrawer() }>
