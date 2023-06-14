@@ -15,7 +15,7 @@ App created with react native + expo. main purpose is to manage user gains and l
 
 Example:
 
-let firebaseConfig = {
+`let firebaseConfig = {
     apiKey: "xxxxxxxx",
     authDomain: "xxxxxxx",
     projectId: "xxxxx"
@@ -23,7 +23,7 @@ let firebaseConfig = {
     messagingSenderId: "xxxxxx",
     appId: "xxxxxxxx"
 };
-
+`
 
 
 # How do runing (Expo users)
