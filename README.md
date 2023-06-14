@@ -3,15 +3,15 @@ App created with react native + expo. main purpose is to manage user gains and l
 
 
 # How do start
-1-create new project in firebase
-2- create new realtime database
-3-enable autetication wicth email and password
+- create new project in firebase
+- create new realtime database
+- enable autetication wicth email and password
 
 
 
 # How do configure firebase
-1- navigate tow src/services
-2 - open firebaseConnection.js and put the your project configuration
+- navigate tow src/services
+- open firebaseConnection.js and put the your project configuration
 
 Example:
 
@@ -27,8 +27,8 @@ Example:
 
 
 # How do runing (Expo users)
-1- cloningb this repository 
-2 - in packege os this reposiory run this comands:
+- cloningb this repository 
+ - in packege os this reposiory run this comands:
 a)yarn  install
 b) yarn starrt
 
