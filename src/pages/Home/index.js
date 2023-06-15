@@ -1,47 +1,78 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../contexts/auth'
-import {Background, Nome, Saldo, Container, Title, List} from './style'
+import { Background, Nome, Saldo, Container, Title, List } from './style'
 import Header from '../../components/Header/index'
 import HistoricoList from '../../components/HistoricoList';
+import firebase from '../../services/firebaseConnection';
+import { format } from 'date-fns';
 
 
 export default function Home() {
+
+  const [historico, setHistorico] = useState([])
+  const [saldo, setSaldo] = useState(0);
+
   const { user } = useContext(AuthContext);
 
-  const [historico,setHistorico] = useState([
+  const uid = user && user.uid;
 
-    { key: '1', tipo: 'receita',  valor: 1200},
-    { key: '2', tipo: 'despesa',  valor: 200},
-    { key: '3', tipo: 'receita',  valor: 40},
-    { key: '4', tipo: 'receita',  valor: 60.78},
-    { key: '5', tipo: 'despesa',  valor: 70.78},
-    { key: '6', tipo: 'receita',  valor: 70.78},
 
-  ])
+  useEffect(() => {
+    async function loadList() {
+
+      await firebase.database().ref('users').child(uid).on('value', (snapshot) => {
+        setSaldo(snapshot.val().saldo)
+      })
+
+
+      await firebase.database().ref('historico')
+        .child(uid)
+        // ordenar segundo o formato
+        .orderByChild('date').equalTo(format(new Date, 'dd/MM/yy'))
+        .limitToLast(10).on("value", (snapshot) => {
+
+
+          setHistorico([])
+
+          snapshot.forEach(( childItem) => {
+
+            let list  = {
+              key: childItem.key,
+              tipo: childItem.val().tipo,
+              valor: childItem.val().valor
+            }
+
+            setHistorico(oldArray => [...oldArray, list].reverse())
+          })
+        })
+
+    }
+    loadList()
+  }, [])
 
 
   return (
 
-      <Background>
+    <Background>
 
-        <Header />
+      <Header />
 
-        <Container>
-          <Nome>{  user && user.nome }</Nome>
-          <Saldo>1500 MT</Saldo>
-        </Container>
+      <Container>
+        <Nome>{user && user.nome}</Nome>
+        <Saldo>{saldo.toFixed(2)} MT</Saldo>
+      </Container>
 
 
-        <Title>Ultimas movimentacoes</Title>
+      <Title>Ultimas movimentacoes</Title>
 
-        <List
+      <List
         showsVerticalScrollIndicator={false}
-        data={ historico }
-        keyExtractor={ item => item.key }
-        renderItem={ ( { item  }) => ( <HistoricoList data={ item } /> ) }
-        />
+        data={historico}
+        keyExtractor={item => item.key}
+        renderItem={({ item }) => (<HistoricoList data={item} />)}
+      />
 
-      </Background>
+    </Background>
 
   );
 }

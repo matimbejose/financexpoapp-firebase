@@ -5,13 +5,18 @@ import 'firebase/compat/database'
 
 
 let firebaseConfig = {
-    apiKey: "AIzaSyCl3H_oUoETs5sxJDDkqezbZhMaIw1AbBI",
-    authDomain: "financasas-49870.firebaseapp.com",  
-    projectId: "financasas-49870",
-    storageBucket: "financasas-49870.appspot.com",
-    messagingSenderId: "590316713620",
-    appId: "1:590316713620:web:7d5bd883ce190e399da681"
-  
+    apiKey: "AIzaSyDr5P-d0HPFPLa5GOiDQZw8hS-M_eOD8LY",
+
+    authDomain: "financasv2.firebaseapp.com",
+
+    projectId: "financasv2",
+
+    storageBucket: "financasv2.appspot.com",
+
+    messagingSenderId: "588434114852",
+
+    appId: "1:588434114852:web:8268f997337d376b82cbb1"
+
 };
 
 

@@ -13,6 +13,13 @@ export default function Picker( { onChange, tipo } ) {
                      width: '100%'
                  }}
 
+                 
+                 placeholder={{
+                    label: 'Selecione o tipo',
+                    color: '#222',
+                    value: null,
+                }}
+
                  selectedValue={tipo}
                  onValueChange={(valor) => onChange(valor)}
 
