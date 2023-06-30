@@ -11,7 +11,7 @@ export default function Header() {
     <Container>
         <ButtonMenu  onPress={() => navigation.toggleDrawer() }>
 
-        <Ionicons name="menu" size={30} color="white" />
+        <Ionicons name="menu" size={35} color="white" />
 
 
         </ButtonMenu>

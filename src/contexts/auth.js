@@ -9,8 +9,7 @@ export const AuthContext = createContext({})
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState('')
     const [loading, setLoading] = useState(true)
-
-
+    const [loadingAuth, setLoadinAuth] = useState(false);
 
     //vericar se ha nada no user 
     useEffect(()=> {
@@ -29,6 +28,7 @@ export default function AuthProvider({ children }) {
 
     //login user
     async function signIn(email, password) {
+        setLoadinAuth(true)
         await firebase.auth().signInWithEmailAndPassword(email, password)
         .then(async (value) => {
             let uid  = value.user.uid;
@@ -42,15 +42,18 @@ export default function AuthProvider({ children }) {
                 }
                 setUser(data)
                 storegeUser(data)
+                setLoadinAuth(false)
             })
         })
         .catch((error) => {
             alert(error.code)
+            setLoadinAuth(false)
         })
     }
 
     // // create new user
     async function signUp(email, password, nome){
+        setLoadinAuth(true);
         await firebase.auth().createUserWithEmailAndPassword(email,password)
         .then(async (value)=>{
             let uid = value.user.uid;
@@ -66,10 +69,12 @@ export default function AuthProvider({ children }) {
                 };
                 setUser(data);
                 storegeUser(data)
+                setLoadinAuth(false)
             })
         })
         .catch((error) => {
             alert(error.code)
+            setLoadinAuth(false)
         })
     }
 
@@ -92,7 +97,15 @@ export default function AuthProvider({ children }) {
 
     return(
 
-        <AuthContext.Provider value={{ signed: !!user, user, signUp, signIn, loading, signOut }}>
+        <AuthContext.Provider value={{ 
+            signed: !!user, 
+            user, 
+            signUp, 
+            signIn, 
+            loading, 
+            signOut,
+            loadingAuth 
+            }}>
             { children }
         </AuthContext.Provider>     
  )
