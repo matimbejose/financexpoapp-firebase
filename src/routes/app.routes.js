@@ -5,6 +5,8 @@ import Home from '../pages/Home'
 import Profile from "../pages/Profile";
 import New from "../pages/New";
 
+import CustomDrawer from "../components/CustomDrawer";
+
 const AppDrawer = createDrawerNavigator()
 
 
@@ -12,6 +14,8 @@ export default function AppRoutes() {
     return (
 
         <AppDrawer.Navigator
+
+        drawerContent={ (props) => <CustomDrawer {...props} /> }
             screenOptions={{
                 drawerStyle: {
                     backgroundColor: '#171717',

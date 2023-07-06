@@ -5,18 +5,16 @@ import Header from '../../components/Header/index'
 import HistoricoList from '../../components/HistoricoList';
 import firebase from '../../services/firebaseConnection';
 import { format, isPast } from 'date-fns';
-import { Alert,TouchableOpacity } from 'react-native';
+import { Alert,Platform,TouchableOpacity } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
-
+import DatePicker from '../../components/DatePicker';
 
 export default function Home() {
 
   const [historico, setHistorico] = useState([])
   const [saldo, setSaldo] = useState(0);
-
-
   const [newDate, setNewDate] = useState(new Date());
-
+  const [show, setShow] = useState(false);
 
   const { user } = useContext(AuthContext);
 
@@ -55,7 +53,7 @@ export default function Home() {
 
     }
     loadList()
-  }, [])
+  }, [newDate])
 
 
   function handleDelete(data) {
@@ -82,7 +80,18 @@ export default function Home() {
   }
 
   function handleShowPicker() {
-    
+    setShow(true)
+  }
+
+  function handleClose() {
+    setShow(false)
+  }
+
+
+  const onChange = (date) => {
+    setShow(Platform.OS === 'ios')
+    setNewDate(date)
+    console.log(date)
   }
 
    async function handleDeleteSucess(data) {
@@ -127,6 +136,16 @@ export default function Home() {
         keyExtractor={item => item.key}
         renderItem={({ item }) => (<HistoricoList data={item} deleteItem={handleDelete} />)}
       />
+
+      {
+        show &&  (
+          <DatePicker  
+          onClose={ handleClose }
+          date={ newDate }
+          onChange={ onChange }
+          />
+        )
+      }
 
     </Background>
 
